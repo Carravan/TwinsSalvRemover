@@ -1,0 +1,7 @@
+## Interface: 11200
+## Title: TwinsSalvRemover
+## Author: Ahmera
+## Notes: Remove BoS in Twins Room
+## Version: 1
+
+TwinsSalvRemover.lua
