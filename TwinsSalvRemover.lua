@@ -70,8 +70,8 @@ local function RemoveSalvIfNeeded()
 		end
 
 		local buffName = GetBuffName(buffId)
-		--if buffName == "Blessing of Salvation" or buffName == "Greater Blessing of Salvation" then
-		if buffName == "Yellow Qiraji Battle Tank" then
+		if buffName == "Blessing of Salvation" or buffName == "Greater Blessing of Salvation" then
+		--if buffName == "Yellow Qiraji Battle Tank" then
 			CancelPlayerBuff(buffIndex)
 			break
 		end
@@ -83,6 +83,39 @@ end
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_AURAS_CHANGED")
 
+local enabled = true
+
 frame:SetScript("OnEvent", function()
+	if not enabled then
+		return
+	end
 	RemoveSalvIfNeeded()
 end)
+
+SLASH_TWINS_SALV_REMOVER1 = "/tsr"
+SlashCmdList["TWINS_SALV_REMOVER"] = function(msg)
+	if msg == "on" then
+		if not enabled then
+			enabled = true
+			DEFAULT_CHAT_FRAME:AddMessage("TwinsSalvRemover enabled")
+		end
+		return
+	end
+
+	if msg == "off" then
+		if enabled then
+			enabled = false
+			DEFAULT_CHAT_FRAME:AddMessage("TwinsSalvRemover disabled")
+		end
+		return
+	end
+
+	if msg == "" then
+		enabled = not enabled
+		if enabled then
+			DEFAULT_CHAT_FRAME:AddMessage("TwinsSalvRemover enabled")
+		else
+			DEFAULT_CHAT_FRAME:AddMessage("TwinsSalvRemover disabled")
+		end
+	end
+end
